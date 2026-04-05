@@ -1,109 +1,85 @@
 import "../assets/CSS/Donate.css";
-import { useState } from "react";
+import { useMemo, useState } from "react";
+import donateHero from "../assets/images/bg2.jpeg";
 
 const Donate = () => {
-    const [showBank, setShowBank] = useState(false);
-    const [showContact, setShowContact] = useState(false);
-    const [showSupplies, setShowSupplies] = useState(false);
+    const [frequency, setFrequency] = useState("monthly");
+    const [amount, setAmount] = useState(50);
+    const presets = useMemo(() => [19, 50, 100], []);
+
     return (
         <div className="donate-page">
             <div className="page-header">
                 <h2 className="section-title">Donate</h2>
                 <p className="section-subtitle">Support verified relief efforts in Maharashtra.</p>
             </div>
-            <div className="donate-grid">
-                <section className="donate-card">
-                    <h3>Emergency Relief Fund</h3>
-                    <p>Funds for food, water, and temporary shelter supplies.</p>
-                    <div className="donate-actions">
-                        <button className="primary" disabled>Donate Now</button>
-                        <button className="secondary" onClick={() => setShowBank(true)}>Bank Details</button>
-                    </div>
-                </section>
-                <section className="donate-card">
-                    <h3>Volunteer Logistics</h3>
-                    <p>Transport, fuel, and equipment support for field teams.</p>
-                    <div className="donate-actions">
-                        <button className="primary" disabled>Sponsor a Trip</button>
-                        <button className="secondary" onClick={() => setShowContact(true)}>Contact Team</button>
-                    </div>
-                </section>
-                <section className="donate-card">
-                    <h3>Medical Supplies</h3>
-                    <p>Basic medicines, first-aid kits, and hygiene supplies.</p>
-                    <div className="donate-actions">
-                        <button className="primary" disabled>Donate Supplies</button>
-                        <button className="secondary" onClick={() => setShowSupplies(true)}>View List</button>
-                    </div>
-                </section>
-            </div>
-            {showBank && (
-                <div className="bank-modal" onClick={() => setShowBank(false)}>
-                    <div className="bank-card" onClick={(e) => e.stopPropagation()}>
-                        <h3>Bank Details (Demo)</h3>
-                        <div className="bank-grid">
-                            <div>
-                                <span>Account Name</span>
-                                <strong>DMS Relief Fund</strong>
-                            </div>
-                            <div>
-                                <span>Account Number</span>
-                                <strong>1234 5678 9012 3456</strong>
-                            </div>
-                            <div>
-                                <span>IFSC</span>
-                                <strong>DMSB0000123</strong>
-                            </div>
-                            <div>
-                                <span>Bank</span>
-                                <strong>State Bank of India</strong>
-                            </div>
-                            <div>
-                                <span>UPI</span>
-                                <strong>dmsrelief@upi</strong>
-                            </div>
+
+            <section className="donate-hero" style={{ backgroundImage: `url(${donateHero})` }}>
+                <div className="donate-overlay" />
+                <div className="donate-panel">
+                    <div className="donate-card-large">
+                        <h3>GIVE NOW</h3>
+                        <p>
+                            Wherever disaster and poverty strike, you can be there to make a difference for someone in need.
+                            Your generosity brings hope to people in their darkest moments.
+                        </p>
+
+                        <div className="donate-tabs">
+                            <button
+                                type="button"
+                                className={frequency === "monthly" ? "tab active" : "tab"}
+                                onClick={() => setFrequency("monthly")}
+                            >
+                                Monthly
+                            </button>
+                            <button
+                                type="button"
+                                className={frequency === "one-time" ? "tab active" : "tab"}
+                                onClick={() => setFrequency("one-time")}
+                            >
+                                One-Time
+                            </button>
                         </div>
-                        <button className="primary" onClick={() => setShowBank(false)}>Close</button>
-                    </div>
-                </div>
-            )}
-            {showContact && (
-                <div className="bank-modal" onClick={() => setShowContact(false)}>
-                    <div className="bank-card" onClick={(e) => e.stopPropagation()}>
-                        <h3>Contact Team (Demo)</h3>
-                        <div className="bank-grid">
-                            <div>
-                                <span>Email</span>
-                                <strong>logistics@dms-relief.in</strong>
-                            </div>
-                            <div>
-                                <span>Phone</span>
-                                <strong>+91 8767008142</strong>
-                            </div>
-                            <div>
-                                <span>Hours</span>
-                                <strong>Mon-Sun, 9:00-18:00</strong>
-                            </div>
+
+                        <div className="donate-presets">
+                            {presets.map((value) => (
+                                <button
+                                    key={value}
+                                    type="button"
+                                    className={amount === value ? "preset active" : "preset"}
+                                    onClick={() => setAmount(value)}
+                                >
+                                    ${value}
+                                </button>
+                            ))}
                         </div>
-                        <button className="primary" onClick={() => setShowContact(false)}>Close</button>
+
+                        <p className="donate-note">
+                            {frequency === "monthly"
+                                ? "Monthly help can sustain life-saving programs worldwide."
+                                : "One-time gifts create immediate relief for families."
+                            }
+                        </p>
+
+                        <div className="donate-amount">
+                            <span>$</span>
+                            <input
+                                type="number"
+                                value={amount}
+                                onChange={(event) => setAmount(Number(event.target.value || 0))}
+                            />
+                        </div>
+
+                        <button type="button" className="donate-submit" disabled>
+                            Give Now
+                        </button>
+
+                        <div className="donate-trust">
+                            <span>Secure payments • Credit Card • UPI • PayPal</span>
+                        </div>
                     </div>
                 </div>
-            )}
-            {showSupplies && (
-                <div className="bank-modal" onClick={() => setShowSupplies(false)}>
-                    <div className="bank-card" onClick={(e) => e.stopPropagation()}>
-                        <h3>Supplies List (Demo)</h3>
-                        <ul className="supplies-list">
-                            <li>First-aid kits</li>
-                            <li>Water bottles</li>
-                            <li>Dry food packets</li>
-                            <li>Blankets</li>
-                            <li>Sanitary kits</li>
-                        </ul>
-                        <button className="primary" onClick={() => setShowSupplies(false)}>Close</button>
-                    </div>
-                </div>
-            )}
+            </section>
         </div>
     );
 };
