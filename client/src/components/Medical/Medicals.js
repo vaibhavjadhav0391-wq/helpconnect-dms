@@ -4,6 +4,11 @@ import "../../assets/CSS/Medicals.css"
 import { useSelector } from 'react-redux'
 
 export const Medicals = () => {
+    const apiBase = process.env.REACT_APP_API_URL || (
+        typeof window !== 'undefined' && window.location.hostname === 'localhost'
+            ? 'http://localhost:5000'
+            : 'https://helpconnect-dms.onrender.com'
+    );
     const isAdmin = useSelector(state => state.roleState.isAdmin);
     const user = useSelector(state => state.userState.user);
     const [updateMed, setUpdateMed]= useState(false);
@@ -144,7 +149,7 @@ export const Medicals = () => {
     useEffect(() => {
         setFacilityStatus('loading');
         setFacilityError('');
-        fetch('process.env.REACT_APP_API_URL/api/facilities')
+        fetch(`${apiBase}/api/facilities`)
             .then((res) => res.json())
             .then((data) => {
                 const hospitals = Array.isArray(data?.hospitals) ? data.hospitals : [];
@@ -183,7 +188,7 @@ export const Medicals = () => {
 
     useEffect(() => {
         if (!user?.Email) return;
-        fetch(`process.env.REACT_APP_API_URL/api/facility-requests?submittedBy=${encodeURIComponent(user.Email)}`)
+        fetch(`${apiBase}/api/facility-requests?submittedBy=${encodeURIComponent(user.Email)}`)
             .then((res) => res.json())
             .then((data) => setUserRequests(Array.isArray(data?.requests) ? data.requests : []))
             .catch(() => setUserRequests([]));
@@ -197,7 +202,7 @@ export const Medicals = () => {
             return;
         }
         try {
-            const response = await fetch('process.env.REACT_APP_API_URL/api/facility-request', {
+            const response = await fetch(`${apiBase}/api/facility-request`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({

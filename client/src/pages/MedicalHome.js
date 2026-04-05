@@ -3,13 +3,18 @@ import { useParams } from 'react-router-dom';
 import '../assets/CSS/MedicalHome.css';
 
 export const MedicalHome = () => {
+  const apiBase = process.env.REACT_APP_API_URL || (
+    typeof window !== 'undefined' && window.location.hostname === 'localhost'
+      ? 'http://localhost:5000'
+      : 'https://helpconnect-dms.onrender.com'
+  );
   const { id } = useParams();
   const [centers, setCenters] = useState([]);
   const [status, setStatus] = useState('idle');
 
   useEffect(() => {
     setStatus('loading');
-    fetch('process.env.REACT_APP_API_URL/api/facilities')
+    fetch(`${apiBase}/api/facilities`)
       .then((res) => res.json())
       .then((data) => {
         const hospitals = Array.isArray(data?.hospitals) ? data.hospitals : [];

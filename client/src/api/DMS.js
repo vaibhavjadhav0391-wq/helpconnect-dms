@@ -5,7 +5,11 @@
 import axios from "axios";
 
 const DMS= axios.create({
-    baseurl:"process.env.REACT_APP_API_URL",
+    baseURL: process.env.REACT_APP_API_URL || (
+        typeof window !== 'undefined' && window.location.hostname === 'localhost'
+            ? 'http://localhost:5000'
+            : 'https://helpconnect-dms.onrender.com'
+    ),
     headers:{
         "Content-Type":"application/json"
     }
