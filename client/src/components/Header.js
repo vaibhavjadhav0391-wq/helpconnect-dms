@@ -10,6 +10,11 @@ import { useNavigate } from 'react-router-dom';
 
 import { Link } from 'react-router-dom';
 export const Header= () => {
+  const apiBase = process.env.REACT_APP_API_URL || (
+    typeof window !== 'undefined' && window.location.hostname === 'localhost'
+      ? 'http://localhost:5000'
+      : 'https://helpconnect-dms.onrender.com'
+  );
   const navigate = useNavigate();
   const loggedIn = useSelector(state => state.roleState.loggedIn);
   const user = useSelector(state => state.userState.user);
@@ -34,7 +39,7 @@ export const Header= () => {
   }, [location.pathname]);
 
   const fetchNotifications = () => {
-    fetch('process.env.REACT_APP_API_URL/notifications')
+    fetch(`${apiBase}/notifications`)
       .then(res => res.json())
       .then(data => setNotifications(data?.notifications || []))
       .catch(() => setNotifications([]));

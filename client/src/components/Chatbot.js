@@ -28,6 +28,11 @@ const formatDateTime = (value) => {
 };
 
 const Chatbot = () => {
+  const apiBase = process.env.REACT_APP_API_URL || (
+    typeof window !== 'undefined' && window.location.hostname === 'localhost'
+      ? 'http://localhost:5000'
+      : 'https://helpconnect-dms.onrender.com'
+  );
   const [open, setOpen] = useState(false);
   const [input, setInput] = useState('');
   const [messages, setMessages] = useState([
@@ -47,9 +52,9 @@ const Chatbot = () => {
       setLoading(true);
       try {
         const [contactsRes, incidentsRes, helpRes] = await Promise.all([
-          fetch('process.env.REACT_APP_API_URL/contacts'),
-          fetch('process.env.REACT_APP_API_URL/incident'),
-          fetch('process.env.REACT_APP_API_URL/api/help-requests')
+          fetch(`${apiBase}/contacts`),
+          fetch(`${apiBase}/incident`),
+          fetch(`${apiBase}/api/help-requests`)
         ]);
         const contactsData = await contactsRes.json();
         const incidentsData = await incidentsRes.json();

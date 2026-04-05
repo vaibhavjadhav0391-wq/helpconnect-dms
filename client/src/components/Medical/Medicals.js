@@ -226,7 +226,7 @@ export const Medicals = () => {
                 description: ''
             });
             setUserRequests((prev) => [data.request, ...prev]);
-            fetch('process.env.REACT_APP_API_URL/api/facility-requests?submittedBy=' + encodeURIComponent(user?.Email || ''))
+            fetch(`${apiBase}/api/facility-requests?submittedBy=${encodeURIComponent(user?.Email || '')}`)
                 .then((res) => res.json())
                 .then((list) => setUserRequests(Array.isArray(list?.requests) ? list.requests : []));
         } catch (error) {

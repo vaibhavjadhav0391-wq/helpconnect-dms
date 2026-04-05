@@ -8,6 +8,11 @@ import { auth } from "../firebase";
 import { signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 
 const Login=()=>{
+    const apiBase = process.env.REACT_APP_API_URL || (
+        typeof window !== 'undefined' && window.location.hostname === 'localhost'
+            ? 'http://localhost:5000'
+            : 'https://helpconnect-dms.onrender.com'
+    );
     const dispatch=useDispatch();
     const navigate=useNavigate();
     const [email,setEmail]=useState("");
@@ -50,7 +55,7 @@ const Login=()=>{
             const provider = new GoogleAuthProvider();
             const result = await signInWithPopup(auth, provider);
             const firebaseUser = result.user;
-            const response = await fetch("process.env.REACT_APP_API_URL/auth/firebase-sync", {
+            const response = await fetch(`${apiBase}/auth/firebase-sync`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"

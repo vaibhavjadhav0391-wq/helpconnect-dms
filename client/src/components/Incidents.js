@@ -51,6 +51,11 @@ const LOCATION_DATA = {
 
 
 export const Incidents = () => {
+    const apiBase = process.env.REACT_APP_API_URL || (
+      typeof window !== 'undefined' && window.location.hostname === 'localhost'
+        ? 'http://localhost:5000'
+        : 'https://helpconnect-dms.onrender.com'
+    );
     const navigate = useNavigate();
     const user = useSelector((state) => state.userState.user);
     const loggedIn = useSelector((state) => state.roleState.loggedIn);
@@ -252,7 +257,7 @@ export const Incidents = () => {
           formData.append('image', imageFile);
         }
         try {
-          const response = await fetch('process.env.REACT_APP_API_URL/api/incidents', {
+          const response = await fetch(`${apiBase}/api/incidents`, {
             method: 'POST',
             body: formData
           });
@@ -261,7 +266,7 @@ export const Incidents = () => {
             throw new Error(data?.error || 'Failed to submit incident.');
           }
           if (data?.incident?._id) {
-            setDownloadLink(`process.env.REACT_APP_API_URL/api/incidents/${data.incident._id}/pdf`);
+            setDownloadLink(`${apiBase}/api/incidents/${data.incident._id}/pdf`);
           }
           setSubmitMessage('Incident submitted successfully.');
           setErrors({});
@@ -297,7 +302,7 @@ export const Incidents = () => {
         setHelpStatus('Please add a contact phone number.');
         return;
       }
-      const response = await fetch('process.env.REACT_APP_API_URL/api/help-requests', {
+      const response = await fetch(`${apiBase}/api/help-requests`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -318,7 +323,7 @@ export const Incidents = () => {
 
 
       const fetchHome = useCallback(async () => {
-        const response = await fetch('process.env.REACT_APP_API_URL/home');
+        const response = await fetch(`${apiBase}/home`);
         const data = await response.json();
         setIncidents(data);
       }, []);

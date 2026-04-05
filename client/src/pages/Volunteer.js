@@ -6,6 +6,11 @@ const SKILLS = ['Medical', 'Rescue', 'Food', 'Transport'];
 const HELP_TYPES = ['Medical', 'Rescue', 'Food', 'Shelter'];
 
 const Volunteer = () => {
+  const apiBase = process.env.REACT_APP_API_URL || (
+    typeof window !== 'undefined' && window.location.hostname === 'localhost'
+      ? 'http://localhost:5000'
+      : 'https://helpconnect-dms.onrender.com'
+  );
   const user = useSelector((state) => state.userState.user);
   const [form, setForm] = useState({
     name: '',
@@ -61,7 +66,7 @@ const Volunteer = () => {
       setStatus('Please fill name, phone, and location.');
       return;
     }
-    const response = await fetch('process.env.REACT_APP_API_URL/api/volunteers', {
+    const response = await fetch(`${apiBase}/api/volunteers`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -81,8 +86,8 @@ const Volunteer = () => {
 
   const fetchData = async () => {
     const [volunteerRes, requestRes] = await Promise.all([
-      fetch('process.env.REACT_APP_API_URL/api/volunteers'),
-      fetch('process.env.REACT_APP_API_URL/api/help-requests')
+      fetch(`${apiBase}/api/volunteers`),
+      fetch(`${apiBase}/api/help-requests`)
     ]);
     const volunteerData = await volunteerRes.json();
     const requestData = await requestRes.json();
@@ -120,7 +125,7 @@ const Volunteer = () => {
     }
     setHelpSubmitting(true);
     setHelpMessage('');
-    const response = await fetch('process.env.REACT_APP_API_URL/api/help-requests', {
+    const response = await fetch(`${apiBase}/api/help-requests`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({

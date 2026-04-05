@@ -5,6 +5,11 @@ import { useSelector } from 'react-redux';
 const ADMIN_EMAILS = ['vaibhav.jadhav04@mit.asia', 'vaibhavjadhav0391@gmail.com'];
 
 const Admin = () => {
+    const apiBase = process.env.REACT_APP_API_URL || (
+        typeof window !== 'undefined' && window.location.hostname === 'localhost'
+            ? 'http://localhost:5000'
+            : 'https://helpconnect-dms.onrender.com'
+    );
     const user = useSelector((state) => state.userState.user);
     const [contacts, setContacts] = useState([]);
     const [status, setStatus] = useState('idle');
@@ -51,7 +56,7 @@ const Admin = () => {
         setStatus('loading');
         setError('');
         try {
-            const response = await fetch('process.env.REACT_APP_API_URL/contacts');
+            const response = await fetch(`${apiBase}/contacts`);
             const data = await response.json();
             if (!response.ok) {
                 throw new Error(data?.error || 'Failed to load contacts.');
@@ -68,7 +73,7 @@ const Admin = () => {
         setIncidentStatus('loading');
         setIncidentError('');
         try {
-            const response = await fetch('process.env.REACT_APP_API_URL/incident');
+            const response = await fetch(`${apiBase}/incident`);
             const data = await response.json();
             if (!response.ok) {
                 throw new Error(data?.error || 'Failed to load incidents.');
@@ -85,7 +90,7 @@ const Admin = () => {
         setFacilityStatus('loading');
         setFacilityError('');
         try {
-            const response = await fetch('process.env.REACT_APP_API_URL/api/facility-requests');
+            const response = await fetch(`${apiBase}/api/facility-requests`);
             const data = await response.json();
             if (!response.ok) {
                 throw new Error(data?.error || 'Failed to load facility requests.');
@@ -102,7 +107,7 @@ const Admin = () => {
         setVolunteerStatus('loading');
         setVolunteerError('');
         try {
-            const response = await fetch('process.env.REACT_APP_API_URL/api/volunteers');
+            const response = await fetch(`${apiBase}/api/volunteers`);
             const data = await response.json();
             if (!response.ok) {
                 throw new Error(data?.error || 'Failed to load volunteers.');
@@ -119,7 +124,7 @@ const Admin = () => {
         setHelpStatus('loading');
         setHelpError('');
         try {
-            const response = await fetch('process.env.REACT_APP_API_URL/api/help-requests');
+            const response = await fetch(`${apiBase}/api/help-requests`);
             const data = await response.json();
             if (!response.ok) {
                 throw new Error(data?.error || 'Failed to load help requests.');
@@ -134,7 +139,7 @@ const Admin = () => {
 
     const updateHelpStatus = async (id, status) => {
         try {
-            const response = await fetch(`process.env.REACT_APP_API_URL/api/help-requests/${id}/status`, {
+            const response = await fetch(`${apiBase}/api/help-requests/${id}/status`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ status })
@@ -206,7 +211,7 @@ const Admin = () => {
         };
         try {
             const response = await fetch(
-                editingId ? `process.env.REACT_APP_API_URL/contacts/${editingId}` : 'process.env.REACT_APP_API_URL/contacts',
+                editingId ? `${apiBase}/contacts/${editingId}` : `${apiBase}/contacts`,
                 {
                     method: editingId ? 'PUT' : 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -240,7 +245,7 @@ const Admin = () => {
         if (!window.confirm('Delete this contact?')) return;
         setError('');
         try {
-            const response = await fetch(`process.env.REACT_APP_API_URL/contacts/${contactId}`, {
+            const response = await fetch(`${apiBase}/contacts/${contactId}`, {
                 method: 'DELETE'
             });
             const data = await response.json();
@@ -284,7 +289,7 @@ const Admin = () => {
             Status: incidentForm.Status
         };
         try {
-            const response = await fetch(`process.env.REACT_APP_API_URL/incident/${incidentEditingId}`, {
+            const response = await fetch(`${apiBase}/incident/${incidentEditingId}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)
@@ -304,7 +309,7 @@ const Admin = () => {
         if (!window.confirm('Delete this incident?')) return;
         setIncidentError('');
         try {
-            const response = await fetch(`process.env.REACT_APP_API_URL/incident/${incidentId}`, {
+            const response = await fetch(`${apiBase}/incident/${incidentId}`, {
                 method: 'DELETE'
             });
             const data = await response.json();
@@ -319,7 +324,7 @@ const Admin = () => {
 
     const approveFacility = async (id) => {
         try {
-            const response = await fetch(`process.env.REACT_APP_API_URL/api/facility-request/${id}/approve`, {
+            const response = await fetch(`${apiBase}/api/facility-request/${id}/approve`, {
                 method: 'PUT'
             });
             const data = await response.json();
@@ -334,7 +339,7 @@ const Admin = () => {
 
     const rejectFacility = async (id) => {
         try {
-            const response = await fetch(`process.env.REACT_APP_API_URL/api/facility-request/${id}/reject`, {
+            const response = await fetch(`${apiBase}/api/facility-request/${id}/reject`, {
                 method: 'PUT'
             });
             const data = await response.json();

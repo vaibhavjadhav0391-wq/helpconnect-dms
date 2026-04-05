@@ -29,7 +29,13 @@ const createMarkerIcon = (color) =>
         iconSize: [18, 18]
     });
 
-const socket = io('process.env.REACT_APP_API_URL', { transports: ['websocket'] });
+const apiBase = process.env.REACT_APP_API_URL || (
+    typeof window !== 'undefined' && window.location.hostname === 'localhost'
+        ? 'http://localhost:5000'
+        : 'https://helpconnect-dms.onrender.com'
+);
+
+const socket = io(apiBase, { transports: ['websocket'] });
 
 const normalizeSeverity = (value) => {
     const severity = String(value || '').toLowerCase();
@@ -92,8 +98,8 @@ const LiveMap = () => {
     useEffect(() => {
         const fetchIncidents = async () => {
             const [liveResponse, legacyResponse] = await Promise.all([
-                fetch('process.env.REACT_APP_API_URL/api/incidents'),
-                fetch('process.env.REACT_APP_API_URL/incident')
+                fetch(`${apiBase}/api/incidents`),
+                fetch(`${apiBase}/incident`)
             ]);
 
             const liveData = await liveResponse.json();
