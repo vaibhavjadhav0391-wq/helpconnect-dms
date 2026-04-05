@@ -65,7 +65,7 @@ export const Header= () => {
     <header className='site-header'>
       <div className="header-inner">
         <Link to='/' className='brand' aria-label="Go to home">
-          <img src={Logo} className='header-logo' alt="DMS logo" />
+          <img src={Logo} className='header-logo' alt="RescueNet logo" />
         </Link>
 
         <nav className="nav-links">

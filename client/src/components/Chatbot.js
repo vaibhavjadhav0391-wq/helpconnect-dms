@@ -135,7 +135,7 @@ const Chatbot = () => {
         <div className="chatbot-window">
           <div className="chatbot-header">
             <div>
-              <h4>Disaster Help Bot</h4>
+              <h4>RescueNet Help Bot</h4>
               <p>Ask about incidents, contacts, or help.</p>
             </div>
             <button type="button" className="ghost" onClick={() => setOpen(false)}>Close</button>

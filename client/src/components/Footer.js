@@ -39,7 +39,7 @@ const Footer = () => {
       </div>
 
       <div className="footer-copy">
-        <p>&copy; DMS. All rights reserved.</p>
+        <p>&copy; RescueNet. All rights reserved.</p>
       </div>
     </footer>
   );
