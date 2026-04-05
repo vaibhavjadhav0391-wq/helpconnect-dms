@@ -3,6 +3,27 @@
     gap: 20px;
 }
 
+.donate-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 18px;
+}
+
+.donate-card {
+    background: var(--surface);
+    border-radius: var(--radius-lg);
+    padding: 20px;
+    box-shadow: var(--shadow);
+    display: grid;
+    gap: 12px;
+}
+
+.donate-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
 .donate-hero {
     position: relative;
     border-radius: 24px;
@@ -130,6 +151,28 @@
     font-weight: 600;
     cursor: not-allowed;
     opacity: 0.9;
+}
+
+.donate-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(20, 15, 12, 0.55);
+    display: grid;
+    place-items: center;
+    z-index: 1200;
+    padding: 16px;
+}
+
+.donate-modal-card {
+    width: min(960px, 95vw);
+}
+
+.donate-close {
+    background: transparent;
+    border: 1px solid rgba(120, 90, 75, 0.35);
+    color: #5a4b3f;
+    padding: 8px 12px;
+    border-radius: 10px;
 }
 
 .donate-trust {
