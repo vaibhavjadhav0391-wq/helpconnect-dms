@@ -47,9 +47,9 @@ const Chatbot = () => {
       setLoading(true);
       try {
         const [contactsRes, incidentsRes, helpRes] = await Promise.all([
-          fetch('http://localhost:5000/contacts'),
-          fetch('http://localhost:5000/incident'),
-          fetch('http://localhost:5000/api/help-requests')
+          fetch('process.env.REACT_APP_API_URL/contacts'),
+          fetch('process.env.REACT_APP_API_URL/incident'),
+          fetch('process.env.REACT_APP_API_URL/api/help-requests')
         ]);
         const contactsData = await contactsRes.json();
         const incidentsData = await incidentsRes.json();

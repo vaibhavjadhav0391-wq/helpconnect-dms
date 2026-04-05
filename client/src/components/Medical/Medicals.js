@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { useNavigate} from 'react-router-dom'
 import "../../assets/CSS/Medicals.css"
 import { useSelector } from 'react-redux'
@@ -43,37 +43,22 @@ export const Medicals = () => {
     const [requestError, setRequestError] = useState('');
     const [userRequests, setUserRequests] = useState([]);
 
-    const filterRating=(rate)=>{
-        const updatedMedicals= allMedical.filter((meds)=> meds.Rating >= rate && meds.Rating< rate+1)
-        setMedicalCenters(updatedMedicals)
-    }
+    const filterRating = useCallback((rate) => {
+        const updatedMedicals = allMedical.filter((meds) => meds.Rating >= rate && meds.Rating < rate + 1);
+        setMedicalCenters(updatedMedicals);
+    }, [allMedical]);
 
-    const filterType=(type)=>{
-        if (type==="") {
+    const filterType = useCallback((type) => {
+        if (type === "") {
             return;
         }
-        const updatedMedicals= allMedical.filter((meds)=> meds.Type === type)
-        setMedicalCenters(updatedMedicals)
-    }
+        const updatedMedicals = allMedical.filter((meds) => meds.Type === type);
+        setMedicalCenters(updatedMedicals);
+    }, [allMedical]);
     
     const [rating,setRating]= useState(0);
     const [type,setType]= useState("");
     
-    const controlFilter= ()=>{
-        console.log(document.querySelector('.rating-filter').children);
-        console.log(rating, type);
-        if (rating===0 && type===""){
-            setMedicalCenters(allMedical);
-            return;
-        }
-        if (rating===0 ) filterType(type);
-        else if(type==="") filterRating(rating)
-        else{
-            setMedicalCenters(allMedical.filter((meds)=>{
-                return (meds.Rating>= rating && meds.Rating< rating+1) && meds.Type===type ;
-            }))
-        }
-    }
 
     const RatingChange=(rate)=>{
 
@@ -138,14 +123,28 @@ export const Medicals = () => {
         setMedicalCenters(updatedMedicals);
     }
 
-    useEffect(()=>{
-        controlFilter();
-    },[rating,type,allMedical])
+    useEffect(() => {
+        if (rating === 0 && type === "") {
+            setMedicalCenters(allMedical);
+            return;
+        }
+        if (rating === 0) {
+            filterType(type);
+            return;
+        }
+        if (type === "") {
+            filterRating(rating);
+            return;
+        }
+        setMedicalCenters(allMedical.filter((meds) => {
+            return (meds.Rating >= rating && meds.Rating < rating + 1) && meds.Type === type;
+        }));
+    }, [rating, type, allMedical, filterRating, filterType])
 
     useEffect(() => {
         setFacilityStatus('loading');
         setFacilityError('');
-        fetch('http://localhost:5000/api/facilities')
+        fetch('process.env.REACT_APP_API_URL/api/facilities')
             .then((res) => res.json())
             .then((data) => {
                 const hospitals = Array.isArray(data?.hospitals) ? data.hospitals : [];
@@ -184,7 +183,7 @@ export const Medicals = () => {
 
     useEffect(() => {
         if (!user?.Email) return;
-        fetch(`http://localhost:5000/api/facility-requests?submittedBy=${encodeURIComponent(user.Email)}`)
+        fetch(`process.env.REACT_APP_API_URL/api/facility-requests?submittedBy=${encodeURIComponent(user.Email)}`)
             .then((res) => res.json())
             .then((data) => setUserRequests(Array.isArray(data?.requests) ? data.requests : []))
             .catch(() => setUserRequests([]));
@@ -198,7 +197,7 @@ export const Medicals = () => {
             return;
         }
         try {
-            const response = await fetch('http://localhost:5000/api/facility-request', {
+            const response = await fetch('process.env.REACT_APP_API_URL/api/facility-request', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -222,7 +221,7 @@ export const Medicals = () => {
                 description: ''
             });
             setUserRequests((prev) => [data.request, ...prev]);
-            fetch('http://localhost:5000/api/facility-requests?submittedBy=' + encodeURIComponent(user?.Email || ''))
+            fetch('process.env.REACT_APP_API_URL/api/facility-requests?submittedBy=' + encodeURIComponent(user?.Email || ''))
                 .then((res) => res.json())
                 .then((list) => setUserRequests(Array.isArray(list?.requests) ? list.requests : []));
         } catch (error) {

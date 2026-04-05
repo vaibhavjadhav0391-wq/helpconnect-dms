@@ -19,33 +19,22 @@ export const Header= () => {
   const [showNotification, setShowNotification] = useState('none');
   const [notifications, setNotifications] = useState([]);
   const location = useLocation();
-  console.log(location.pathname.split("/"));
-  const navBars= ['.nav-incidents','.nav-communities','.nav-announcements','.nav-medicals','.nav-donate', '.nav-volunteer' ];
-
-  const SetActive= (command)=>{
-      navBars.forEach((bars)=>{
-        if (bars===command){
-          document.querySelector(command).classList.add('nav-active');
-        }
-        else{
-          document.querySelector(bars).classList.remove('nav-active');
-        }
-      })
-  }
-
-  useEffect(()=>{
-    if (navBars.includes(".nav-"+ location.pathname.split("/")[1])) SetActive(".nav-"+ location.pathname.split("/")[1]);
-    else{
-      navBars.forEach((bars)=>{
-        document.querySelector(bars).classList.remove('nav-active');
-      })
-    }
-  }
-
-      ,[location.pathname.split("/")])
+  useEffect(() => {
+    const current = `.nav-${location.pathname.split('/')[1]}`;
+    const navBars= ['.nav-incidents','.nav-communities','.nav-announcements','.nav-medicals','.nav-donate', '.nav-volunteer' ];
+    navBars.forEach((bars) => {
+      const element = document.querySelector(bars);
+      if (!element) return;
+      if (bars === current) {
+        element.classList.add('nav-active');
+      } else {
+        element.classList.remove('nav-active');
+      }
+    });
+  }, [location.pathname]);
 
   const fetchNotifications = () => {
-    fetch('http://localhost:5000/notifications')
+    fetch('process.env.REACT_APP_API_URL/notifications')
       .then(res => res.json())
       .then(data => setNotifications(data?.notifications || []))
       .catch(() => setNotifications([]));

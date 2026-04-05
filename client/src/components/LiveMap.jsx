@@ -29,7 +29,7 @@ const createMarkerIcon = (color) =>
         iconSize: [18, 18]
     });
 
-const socket = io('http://localhost:5000', { transports: ['websocket'] });
+const socket = io('process.env.REACT_APP_API_URL', { transports: ['websocket'] });
 
 const normalizeSeverity = (value) => {
     const severity = String(value || '').toLowerCase();
@@ -92,8 +92,8 @@ const LiveMap = () => {
     useEffect(() => {
         const fetchIncidents = async () => {
             const [liveResponse, legacyResponse] = await Promise.all([
-                fetch('http://localhost:5000/api/incidents'),
-                fetch('http://localhost:5000/incident')
+                fetch('process.env.REACT_APP_API_URL/api/incidents'),
+                fetch('process.env.REACT_APP_API_URL/incident')
             ]);
 
             const liveData = await liveResponse.json();

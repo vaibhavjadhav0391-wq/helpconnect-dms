@@ -1,37 +1,35 @@
-import React, { useEffect } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import '../assets/CSS/Community.css';
-import { useParams,
-    useNavigate,
-    Outlet,
-    Link
- } from 'react-router-dom';
+import { useParams, Outlet, Link } from 'react-router-dom';
 import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
 const Community = () => {
     const { id } = useParams();
     const location = useLocation();
-    useEffect(()=>{
-      console.log(".community-"+ location.pathname.split("/")[3]);
-      if (location.pathname.split("/").length>3) SetActive(".community-"+ location.pathname.split("/")[3]);
-      else SetActive(".community-home")
-    }, location.pathname.split("/"));
     const LeaderNum = '+91 8767008142';
     const [Num, setNum] = useState('+91 xxxxxxxx (click to reveal)');
 
-    const SetActive= (command)=>{
-      // const navBars= ['.community-home','.community-chat','.community-volunteers','.community-announcement' ];
-      const navBars= ['.community-home','.community-volunteers','.community-announcement' ];
-      console.log(command);
-      navBars.forEach((bars)=>{
-        if (bars===command){
-          document.querySelector(command).classList.add('com-nav-active');
+    const SetActive = useCallback((command) => {
+      const navBars = ['.community-home', '.community-volunteers', '.community-announcement'];
+      navBars.forEach((bars) => {
+        const element = document.querySelector(bars);
+        if (!element) return;
+        if (bars === command) {
+          element.classList.add('com-nav-active');
+        } else {
+          element.classList.remove('com-nav-active');
         }
-        else{
-          document.querySelector(bars).classList.remove('com-nav-active');
-        }
-      })
-  }
+      });
+    }, []);
+
+    useEffect(() => {
+      if (location.pathname.split("/").length > 3) {
+        SetActive(".community-" + location.pathname.split("/")[3]);
+      } else {
+        SetActive(".community-home");
+      }
+    }, [location.pathname, SetActive]);
     
   return (
     <div className="community-page">

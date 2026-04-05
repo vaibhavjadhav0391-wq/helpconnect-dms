@@ -5,7 +5,7 @@
 import axios from "axios";
 
 const DMS= axios.create({
-    baseurl:"http://localhost:5000",
+    baseurl:"process.env.REACT_APP_API_URL",
     headers:{
         "Content-Type":"application/json"
     }

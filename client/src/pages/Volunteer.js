@@ -61,7 +61,7 @@ const Volunteer = () => {
       setStatus('Please fill name, phone, and location.');
       return;
     }
-    const response = await fetch('http://localhost:5000/api/volunteers', {
+    const response = await fetch('process.env.REACT_APP_API_URL/api/volunteers', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -81,8 +81,8 @@ const Volunteer = () => {
 
   const fetchData = async () => {
     const [volunteerRes, requestRes] = await Promise.all([
-      fetch('http://localhost:5000/api/volunteers'),
-      fetch('http://localhost:5000/api/help-requests')
+      fetch('process.env.REACT_APP_API_URL/api/volunteers'),
+      fetch('process.env.REACT_APP_API_URL/api/help-requests')
     ]);
     const volunteerData = await volunteerRes.json();
     const requestData = await requestRes.json();
@@ -120,7 +120,7 @@ const Volunteer = () => {
     }
     setHelpSubmitting(true);
     setHelpMessage('');
-    const response = await fetch('http://localhost:5000/api/help-requests', {
+    const response = await fetch('process.env.REACT_APP_API_URL/api/help-requests', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -150,13 +150,6 @@ const Volunteer = () => {
       };
     });
   };
-
-  const mapCenter = useMemo(() => {
-    if (form.latitude && form.longitude) {
-      return { lat: Number(form.latitude), lng: Number(form.longitude) };
-    }
-    return { lat: 20.5937, lng: 78.9629 };
-  }, [form.latitude, form.longitude]);
 
 
   const volunteerCards = useMemo(() => {

@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import '../assets/CSS/Incidents.css';
 import { useSelector } from "react-redux";
 import { useNavigate } from 'react-router-dom';
@@ -55,7 +55,6 @@ export const Incidents = () => {
     const user = useSelector((state) => state.userState.user);
     const loggedIn = useSelector((state) => state.roleState.loggedIn);
     const [ incidents, setIncidents] = useState(null);
-    const [ locations , setLocations] = useState(null);
     const [longitude] = useState(78.9629);
     const [latitude] = useState(20.5937);
   const [imageFile, setImageFile] = useState(null);
@@ -253,7 +252,7 @@ export const Incidents = () => {
           formData.append('image', imageFile);
         }
         try {
-          const response = await fetch('http://localhost:5000/api/incidents', {
+          const response = await fetch('process.env.REACT_APP_API_URL/api/incidents', {
             method: 'POST',
             body: formData
           });
@@ -262,7 +261,7 @@ export const Incidents = () => {
             throw new Error(data?.error || 'Failed to submit incident.');
           }
           if (data?.incident?._id) {
-            setDownloadLink(`http://localhost:5000/api/incidents/${data.incident._id}/pdf`);
+            setDownloadLink(`process.env.REACT_APP_API_URL/api/incidents/${data.incident._id}/pdf`);
           }
           setSubmitMessage('Incident submitted successfully.');
           setErrors({});
@@ -298,7 +297,7 @@ export const Incidents = () => {
         setHelpStatus('Please add a contact phone number.');
         return;
       }
-      const response = await fetch('http://localhost:5000/api/help-requests', {
+      const response = await fetch('process.env.REACT_APP_API_URL/api/help-requests', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -318,35 +317,19 @@ export const Incidents = () => {
     };
 
 
-      const fetchHome = async () => {
-        const response = await fetch('http://localhost:5000/home');
+      const fetchHome = useCallback(async () => {
+        const response = await fetch('process.env.REACT_APP_API_URL/home');
         const data = await response.json();
         setIncidents(data);
-        const mapLocations = Array.isArray(data?.MapLocation) ? [...data.MapLocation] : [];
-        mapLocations.push({ position: [latitude, longitude], popupText: "India" });
-        setLocations(mapLocations);
-      };
+      }, []);
 
       useEffect(() => {
         fetchHome();
-      }, []);
+      }, [fetchHome]);
 
       
      
 
-      const seelocationid=()=>{
-        var modal = document.getElementById("locationModal");
-        var span = document.getElementsByClassName("close-btn")[0];
-        modal.style.display = "block";
-        span.onclick = function() {
-          modal.style.display = "none";
-        }
-        window.onclick = function(event) {
-          if (event.target === modal) {
-            modal.style.display = "none";
-          }
-        }
-      }
 
   return (
     <div className='incidents-page'>

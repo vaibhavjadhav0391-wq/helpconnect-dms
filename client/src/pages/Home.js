@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import '../assets/CSS/Home.css';
 
 import { ImgSlider, LiveMap, Statistics } from '../components';
@@ -12,7 +12,7 @@ const Home = () => {
   const [ incidents, setIncidents] = useState(null);
   const [contacts, setContacts] = useState(null);
   useEffect(() => {
-    fetch('http://localhost:5000/home')
+    fetch('process.env.REACT_APP_API_URL/home')
     .then(res => res.json())
     .then(data => {
       setIncidents(data);
@@ -75,7 +75,7 @@ const Home = () => {
     }
     setHelpSubmitting(true);
     setHelpStatus('');
-    const response = await fetch('http://localhost:5000/api/help-requests', {
+    const response = await fetch('process.env.REACT_APP_API_URL/api/help-requests', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({

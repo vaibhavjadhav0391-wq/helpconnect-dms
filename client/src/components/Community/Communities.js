@@ -1,6 +1,6 @@
 import React from 'react'
 import "../../assets/CSS/Communities.css"
-import { Link,useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 export const Communities = () => {
     const navigate = useNavigate();

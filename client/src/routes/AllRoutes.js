@@ -7,7 +7,6 @@ import { Header,Map,Footer,CommunityHome,
   CommunityChat, Communities, Medicals ,Incidents
 } from '../components';
 import {Auth} from '../pages/Auth';
-import { useState } from 'react';
 
 import { useSelector } from 'react-redux';
 
@@ -19,8 +18,6 @@ export const AllRoutes = () => {
     const adminEmails = ['vaibhav.jadhav04@mit.asia', 'vaibhavjadhav0391@gmail.com'];
     const isAdminEmail = adminEmails.includes((user?.Email || '').toLowerCase());
 
-    const [myLocation, setMyLocation] = useState([23.7264, 90.3925]);
-    
  
     const locations = [
       { position: [23.7264, 90.3925], popupText: 'Buet' },

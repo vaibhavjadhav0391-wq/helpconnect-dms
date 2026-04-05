@@ -9,7 +9,7 @@ export const MedicalHome = () => {
 
   useEffect(() => {
     setStatus('loading');
-    fetch('http://localhost:5000/api/facilities')
+    fetch('process.env.REACT_APP_API_URL/api/facilities')
       .then((res) => res.json())
       .then((data) => {
         const hospitals = Array.isArray(data?.hospitals) ? data.hospitals : [];
