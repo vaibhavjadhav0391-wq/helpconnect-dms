@@ -8,11 +8,16 @@ import Chatbot from '../components/Chatbot';
 
 const Home = () => {
   const user = useSelector((state) => state.userState.user);
+  const apiBase = process.env.REACT_APP_API_URL || (
+    typeof window !== 'undefined' && window.location.hostname === 'localhost'
+      ? 'http://localhost:5000'
+      : 'https://helpconnect-dms.onrender.com'
+  );
 
   const [ incidents, setIncidents] = useState(null);
   const [contacts, setContacts] = useState(null);
   useEffect(() => {
-    fetch('process.env.REACT_APP_API_URL/home')
+    fetch(`${apiBase}/home`)
     .then(res => res.json())
     .then(data => {
       setIncidents(data);
@@ -75,7 +80,7 @@ const Home = () => {
     }
     setHelpSubmitting(true);
     setHelpStatus('');
-    const response = await fetch('process.env.REACT_APP_API_URL/api/help-requests', {
+    const response = await fetch(`${apiBase}/api/help-requests`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
