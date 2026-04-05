@@ -5,5 +5,6 @@ import Announcements from './Announcements';
 import Donate from './Donate';
 import Admin from './Admin';
 import Volunteer from './Volunteer';
+import Guidelines from './Guidelines';
 
-export { Home, Community, MedicalHome, Announcements, Donate, Admin, Volunteer };
+export { Home, Community, MedicalHome, Announcements, Donate, Admin, Volunteer, Guidelines };

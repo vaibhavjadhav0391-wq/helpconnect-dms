@@ -1,7 +1,7 @@
 
 import { Routes, Route, Navigate } from 'react-router-dom';
 
-import { Home, Community, MedicalHome, Announcements, Donate, Admin, Volunteer } from '../pages';
+import { Home, Community, MedicalHome, Announcements, Donate, Admin, Volunteer, Guidelines } from '../pages';
 import { Header,Map,Footer,CommunityHome,
   CommunityForum,CommunityVolunteers,
   CommunityChat, Communities, Medicals ,Incidents
@@ -52,6 +52,7 @@ export const AllRoutes = () => {
             <Route path="/communities" element={<Communities />} />
             <Route path="/incidents" element={<Incidents />} />
             <Route path="/announcements" element={loggedIn ? <Announcements /> : <Navigate to="/auth/login" />} />
+            <Route path="/guidelines" element={<Guidelines />} />
             <Route path="/donate" element={loggedIn ? <Donate /> : <Navigate to="/auth/login" />} />
             <Route path="/medicals" element={<Medicals />} />
             <Route path="/medical/:id" element={<MedicalHome />} />
