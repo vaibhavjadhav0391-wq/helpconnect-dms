@@ -42,6 +42,8 @@ const createHelpRequest = async (req, res) => {
         });
 
         const volunteers = await Volunteer.find({ available: true });
+
+        // ✅ FIX: use `matched` everywhere instead of `allVolunteers`
         const matched = volunteers.filter((volunteer) => {
             const skillMatch = volunteer.skills.includes(type);
             if (!skillMatch) return false;
@@ -53,14 +55,16 @@ const createHelpRequest = async (req, res) => {
             );
             return distance <= 10;
         });
-        const allVolunteers = volunteers;
 
-        request.matchedVolunteers = allVolunteers.map((item) => item._id);
+        // ✅ Save only matched volunteers to DB
+        request.matchedVolunteers = matched.map((item) => item._id);
         await request.save();
 
         const message = `Emergency Alert!\nSomeone nearby needs your help.\n\nType: ${type}\nLocation: ${latitude}, ${longitude}\n\nYou are selected as a volunteer based on your skills.\nContact: ${userPhone || 'N/A'}\nPlease respond immediately.`;
+
+        // ✅ Notify only matched volunteers
         try {
-            await notifyVolunteers(allVolunteers, message);
+            await notifyVolunteers(matched, message);
         } catch (error) {
             console.log('Volunteer notification failed:', error.message);
         }
