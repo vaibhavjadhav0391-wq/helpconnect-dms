@@ -1,6 +1,6 @@
 import "../assets/CSS/Donate.css";
 import { useMemo, useState } from "react";
-import donateHero from "../assets/images/bg2.jpeg";
+import donateHero from "../assets/images/bg1.jpg";
 
 const Donate = () => {
     const [frequency, setFrequency] = useState("monthly");
