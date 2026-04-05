@@ -12,9 +12,9 @@ app.use(express.static('build'));
 app.use('/uploads', express.static('uploads'));
 app.use(express.json());
 app.use(cors({
-    origin: ['http://localhost:3000', 'http://localhost:3001', 'http://localhost:3002', 'http://localhost:3003', 'http://localhost:3004', 'http://localhost:3005'], // Allow dev client origins
-    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allowed HTTP methods
-    allowedHeaders: ['Content-Type', 'Authorization'] // Allowed headers
+    origin: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
 
