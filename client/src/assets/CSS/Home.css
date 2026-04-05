@@ -1,0 +1,82 @@
+.home-page {
+    display: grid;
+    gap: 32px;
+    position: relative;
+}
+
+.home-section {
+    display: grid;
+    gap: 18px;
+}
+
+.section-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: none;
+    background: transparent;
+    color: var(--text-strong);
+    font-size: 20px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 0;
+    box-shadow: none;
+}
+
+.section-toggle .icon {
+    width: 18px;
+    height: 18px;
+    margin-left: 6px;
+}
+
+.help-float {
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    background: #e07a5f;
+    color: #fff;
+    border: none;
+    padding: 0 18px;
+    border-radius: 999px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: max-content;
+    height: 44px;
+    max-height: 44px;
+    min-height: 44px;
+    min-height: 44px;
+    font-size: 15px;
+    line-height: 1;
+    white-space: nowrap;
+    writing-mode: horizontal-tb;
+    transform: none;
+    box-sizing: border-box;
+    cursor: pointer;
+    box-shadow: 0 14px 30px rgba(224, 122, 95, 0.28);
+    z-index: 60;
+}
+
+.help-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(10, 10, 10, 0.45);
+    display: grid;
+    place-items: center;
+    z-index: 70;
+}
+
+.help-modal-card {
+    background: #fff;
+    border-radius: 18px;
+    padding: 22px;
+    width: min(420px, 92vw);
+    display: grid;
+    gap: 12px;
+}
+
+.inline-row {
+    display: flex;
+    gap: 12px;
+}

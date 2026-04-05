@@ -1,0 +1,30 @@
+.announcements-page {
+    display: grid;
+    gap: 20px;
+}
+
+.announcement-list {
+    display: grid;
+    gap: 16px;
+}
+
+.announcement-card {
+    background: var(--surface);
+    border-radius: var(--radius-lg);
+    padding: 20px;
+    box-shadow: var(--shadow);
+    display: grid;
+    gap: 10px;
+}
+
+.announcement-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.announcement-date {
+    color: var(--text-muted);
+    font-size: 13px;
+}

@@ -1,0 +1,71 @@
+.discussion-forum {
+    display: grid;
+    gap: 20px;
+  }
+
+  .forum-header {
+    text-align: left;
+  }
+
+  .forum-header p {
+    margin: 0;
+  }
+  
+  .topics-list {
+    display: grid;
+    gap: 16px;
+  }
+  
+  .topic-card {
+    background: var(--surface);
+    padding: 20px;
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+    transition: transform 0.3s ease;
+  }
+  
+  .topic-card:hover {
+    transform: translateY(-4px);
+  }
+  
+  .topic-title {
+    font-size: 20px;
+    color: var(--text-strong);
+    margin: 0;
+  }
+
+  .topic-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  
+  .topic-description {
+    font-size: 16px;
+    color: var(--text-muted);
+    margin: 10px 0 0 0;
+  }
+  
+  .topic-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    margin-top: 14px;
+  }
+  
+  .topic-time {
+    font-size: 14px;
+    color: var(--text-muted);
+  }
+  
+  .like-button {
+    background-color: var(--accent);
+    color: white;
+    border: none;
+    border-radius: 999px;
+    padding: 6px 12px;
+    cursor: pointer;
+  }
+  

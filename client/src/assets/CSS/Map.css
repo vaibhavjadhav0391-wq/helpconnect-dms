@@ -1,0 +1,7 @@
+.map-container {
+    width: 100%;
+    height: min(520px, 70vh);
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+}

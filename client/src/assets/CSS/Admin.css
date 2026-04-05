@@ -1,0 +1,120 @@
+:root {
+  --admin-surface: #ffffff;
+  --admin-border: #e6d9cc;
+  --admin-accent: #1b6b6f;
+  --admin-accent-dark: #114347;
+  --admin-danger: #b3362d;
+  --admin-muted: #6b5a4a;
+}
+
+.admin-page {
+  padding: 32px 5vw 64px;
+  background: linear-gradient(180deg, #fbf6f1 0%, #f6eee7 100%);
+  min-height: 70vh;
+}
+
+.admin-header {
+  margin-bottom: 24px;
+}
+
+.admin-header h2 {
+  font-size: 32px;
+  margin-bottom: 6px;
+}
+
+.admin-header p {
+  color: var(--admin-muted);
+}
+
+.admin-panel {
+  background: var(--admin-surface);
+  border: 1px solid var(--admin-border);
+  border-radius: 18px;
+  padding: 24px;
+  margin-bottom: 24px;
+  box-shadow: 0 12px 30px rgba(30, 22, 18, 0.08);
+}
+
+.admin-form {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.form-row {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-row input {
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--admin-border);
+  background: #fffaf6;
+}
+
+.form-actions {
+  grid-column: 1 / -1;
+  display: flex;
+  gap: 12px;
+}
+
+.form-error {
+  grid-column: 1 / -1;
+  color: var(--admin-danger);
+}
+
+.primary {
+  background: var(--admin-accent);
+  color: #fff;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 10px;
+}
+
+.secondary {
+  background: transparent;
+  color: var(--admin-accent);
+  border: 1px solid var(--admin-accent);
+  padding: 10px 16px;
+  border-radius: 10px;
+}
+
+.status {
+  color: var(--admin-muted);
+}
+
+.status.error {
+  color: var(--admin-danger);
+}
+
+.row-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.link {
+  background: none;
+  border: none;
+  color: var(--admin-accent-dark);
+  cursor: pointer;
+  padding: 0;
+}
+
+.link.danger {
+  color: var(--admin-danger);
+}
+
+.empty-state {
+  text-align: center;
+  color: var(--admin-muted);
+}
+
+.admin-locked {
+  background: var(--admin-surface);
+  border-radius: 18px;
+  padding: 32px;
+  text-align: center;
+  border: 1px dashed var(--admin-border);
+}

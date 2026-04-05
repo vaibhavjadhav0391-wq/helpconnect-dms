@@ -1,0 +1,156 @@
+.volunteer-page {
+  display: grid;
+  gap: 24px;
+}
+
+.volunteer-form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.volunteer-form .form-item {
+  display: grid;
+  gap: 8px;
+}
+
+.inline-row {
+  display: flex;
+  gap: 12px;
+}
+
+.chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.chip {
+  border: 1px solid rgba(120, 90, 75, 0.3);
+  border-radius: 999px;
+  padding: 6px 14px;
+  background: #fff7f2;
+  color: #5a4b3f;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.chip.active {
+  background: #e07a5f;
+  color: #fff;
+  border-color: #e07a5f;
+}
+
+.help-float {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  background: #e07a5f;
+  color: #fff;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 999px;
+  cursor: pointer;
+  box-shadow: 0 12px 24px rgba(224, 122, 95, 0.25);
+  z-index: 60;
+}
+
+.volunteer-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.volunteer-card {
+  background: #fff7f2;
+  border-radius: 14px;
+  padding: 14px;
+  box-shadow: 0 10px 18px rgba(28, 21, 16, 0.1);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.badge {
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.badge.success {
+  background: #def5e7;
+  color: #1c7c4a;
+}
+
+.badge.warn {
+  background: #fce7d6;
+  color: #a85a1f;
+}
+
+.card-meta {
+  font-size: 13px;
+  color: #5a4b3f;
+  margin: 4px 0;
+}
+
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 10, 10, 0.45);
+  display: grid;
+  place-items: center;
+  z-index: 60;
+}
+
+.modal-card {
+  background: #fff;
+  border-radius: 18px;
+  padding: 22px;
+  width: min(420px, 92vw);
+  display: grid;
+  gap: 12px;
+  position: relative;
+  overflow: hidden;
+  animation: pop 0.25s ease;
+}
+
+.confetti {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: linear-gradient(90deg, #ffd166, #ef476f, #06d6a0, #118ab2, #ffd166);
+  opacity: 0.35;
+  animation: float 1.6s ease-in-out infinite;
+}
+
+.form-help.error {
+  color: #b63d32;
+}
+
+@keyframes pop {
+  from {
+    transform: scale(0.95);
+    opacity: 0.6;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(8px);
+  }
+}

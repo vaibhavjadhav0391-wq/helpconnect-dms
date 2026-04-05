@@ -1,0 +1,265 @@
+.incidents-page {
+    display: grid;
+    gap: 24px;
+}
+
+.page-header {
+    display: grid;
+    gap: 6px;
+}
+
+.section-subtitle {
+    color: var(--text-muted);
+    margin: 0;
+}
+
+.panel-card {
+    background: var(--surface);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow);
+    padding: 24px;
+    display: grid;
+    gap: 16px;
+}
+
+.location-form {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 14px;
+}
+
+.location-form .form-item {
+    display: grid;
+    gap: 6px;
+    box-sizing: border-box;
+}
+
+.location-form label {
+    font-weight: 500;
+    color: var(--text-strong);
+    margin-bottom: 6px;
+}
+
+.location-form input,
+.location-form select,
+.location-form textarea {
+    padding: 10px 12px;
+    border-radius: 12px;
+    border: 1px solid rgba(120, 90, 75, 0.2);
+    background: #fff;
+    font-size: 14px;
+    color: var(--text-strong);
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.location-form textarea {
+    resize: vertical;
+}
+
+.form-error {
+    font-size: 12px;
+    color: #b63d32;
+}
+
+.field-error {
+    border-color: #d45a4a !important;
+    box-shadow: 0 0 0 2px rgba(212, 90, 74, 0.15);
+}
+
+.report-form {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 20px;
+    align-items: end;
+}
+
+.report-form .span-2 {
+    grid-column: span 2;
+}
+
+.report-form .span-4 {
+    grid-column: 1 / -1;
+}
+
+.form-help {
+    font-size: 12px;
+    color: var(--text-muted);
+}
+
+.report-locked {
+    display: grid;
+    gap: 12px;
+    align-items: start;
+}
+
+.submit-btn {
+    justify-self: start;
+    height: 48px;
+    width: 100%;
+}
+
+.report-form input,
+.report-form select {
+    height: 48px;
+    width: 100%;
+}
+
+.report-form textarea {
+    min-height: 110px;
+}
+
+.report-form .submit-btn {
+    align-self: end;
+}
+
+.location-toggle .toggle-buttons {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.toggle {
+    height: 48px;
+    border-radius: 12px;
+    border: 1px solid rgba(120, 90, 75, 0.3);
+    background: #fff7f2;
+    font-weight: 600;
+    color: #5a4b3f;
+    cursor: pointer;
+}
+
+.toggle.active {
+    background: #e07a5f;
+    color: #fff;
+    border-color: #e07a5f;
+}
+
+
+.submit-field .submit-btn {
+    align-self: end;
+}
+
+.submit-btn:hover {
+    filter: brightness(0.96);
+}
+
+.download-link {
+    display: inline-block;
+    margin-top: 8px;
+    color: #1b6b6f;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.download-link:hover {
+    text-decoration: underline;
+}
+
+.download-link.disabled {
+    color: #9b8b7c;
+    pointer-events: none;
+    text-decoration: none;
+}
+
+.report-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding-top: 8px;
+}
+
+.report-status {
+    color: var(--text-muted);
+    font-size: 13px;
+}
+
+.gps-field .submit-btn,
+.gps-field input {
+    width: 100%;
+}
+
+.location-form input:disabled,
+.location-form select:disabled,
+.location-form textarea:disabled {
+    background: #f3ece7;
+    color: #8a7a6b;
+}
+
+.toggle:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.map-shell {
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 12px 24px rgba(28, 21, 16, 0.1);
+}
+
+.help-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    display: grid;
+    place-items: center;
+    z-index: 40;
+}
+
+.help-modal-card {
+    background: var(--surface);
+    border-radius: 16px;
+    padding: 20px;
+    width: min(420px, 92vw);
+    display: grid;
+    gap: 12px;
+}
+
+.spacer {
+    pointer-events: none;
+    visibility: hidden;
+}
+
+.sr-only {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+}
+
+@media (max-width: 1024px) {
+    .report-form {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .report-form .span-2,
+    .report-form .span-4 {
+        grid-column: 1 / -1;
+    }
+}
+
+@media (max-width: 640px) {
+    .report-form {
+        grid-template-columns: 1fr;
+    }
+}
+
+.alert-box {
+    background: #ffe3d7;
+    border-radius: var(--radius-md);
+    padding: 16px;
+    border: 1px solid rgba(224, 122, 95, 0.4);
+}
+
+.alert {
+    color: #8b3d2b;
+    margin: 0;
+}
+
+.table-note {
+    max-width: 220px;
+}
+
